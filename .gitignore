@@ -1,0 +1,13 @@
+bin/
+dist/
+*.test
+*.out
+coverage.*
+
+# Local working notes and study material. Not part of the published project.
+notes/
+
+# Local rootfs tarballs and extracted images used for manual testing.
+testdata/rootfs/
+*.tar.gz
+*.tar.xz
