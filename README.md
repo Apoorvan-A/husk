@@ -158,8 +158,8 @@ absolute numbers are dominated by the host.
 
 | peak RSS of the runtime process | |
 |---|---|
-| runc | 12.0 MiB |
-| husk | **9.0 MiB** |
+| runc | 11.8 MiB (12032 KiB) |
+| husk | **9.0 MiB** (9216 KiB) |
 
 runc is about 1.4× faster to cold start, which is the expected and correct
 result. The gap is mostly the sealed-memfd copy of the binary on every start
