@@ -1,0 +1,104 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  GO_VERSION: "1.25"
+
+jobs:
+  build:
+    name: build and vet
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          cache: true
+
+      - name: gofmt
+        run: make check-fmt
+
+      - name: vet
+        run: make vet
+
+      - name: build
+        run: make build
+
+      # The binary must be static. husk execs itself inside the container's
+      # mount namespace, where the host's dynamic loader does not exist, so a
+      # dynamically linked build fails at container start with no useful error.
+      - name: verify the binary is static
+        run: |
+          file bin/husk
+          if file bin/husk | grep -q "dynamically linked"; then
+            echo "::error::bin/husk is dynamically linked; it must be static (CGO_ENABLED=0)"
+            exit 1
+          fi
+
+      - name: unit tests
+        run: make test
+
+  escape:
+    name: adversarial escape suite
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          cache: true
+
+      # Every assumption the suite makes, checked before it runs, so a failure
+      # is attributable to husk rather than to the runner.
+      - name: verify the runner can host containers
+        run: |
+          echo "kernel:  $(uname -r)"
+          echo "cgroup:  $(stat -fc %T /sys/fs/cgroup)"
+          test "$(stat -fc %T /sys/fs/cgroup)" = "cgroup2fs" \
+            || { echo "::error::runner is not on a cgroup v2 unified hierarchy"; exit 1; }
+          grep -qw overlay /proc/filesystems \
+            || { echo "::error::runner kernel has no overlayfs"; exit 1; }
+          echo "swap:    $(free -h | awk '/Swap/ {print $2}')"
+
+      # The root cgroup's subtree_control is systemd's on this runner, so the
+      # controllers husk needs have to be delegated down before it can create
+      # its own subtree.
+      - name: delegate cgroup controllers
+        run: |
+          for c in cpu memory pids io; do
+            echo "+$c" | sudo tee /sys/fs/cgroup/cgroup.subtree_control >/dev/null 2>&1 || true
+          done
+          cat /sys/fs/cgroup/cgroup.subtree_control
+
+      - name: install tooling
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq iptables iproute2 libcap2-bin jq
+
+      - name: cache the test rootfs
+        uses: actions/cache@v4
+        with:
+          path: /var/lib/husk-test/rootfs.tar.gz
+          key: husk-test-rootfs-alpine-3.21.3
+
+      - name: build
+        run: make build
+
+      # -E preserves PATH so the go toolchain set up above is still found under
+      # sudo, and HUSK_TEST_CACHE points at the cached rootfs.
+      - name: run the escape suite
+        run: sudo -E env "PATH=$PATH" HUSK_TEST_CACHE=/var/lib/husk-test make test-escape
+
+      - name: leak check
+        if: always()
+        run: |
+          echo "veths:   $(ip -o link show type veth 2>/dev/null | grep -c hveth || true)"
+          echo "cgroups: $(sudo ls /sys/fs/cgroup/husk 2>/dev/null | grep -cv '^cgroup\|^cpu\|^io\|^memory\|^pids' || true)"
+          sudo ./scripts/purge.sh || true
