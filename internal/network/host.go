@@ -8,7 +8,7 @@ import (
 
 	"github.com/vishvananda/netlink"
 
-	"github.com/apoorvan10/husk/internal/container"
+	"github.com/Apoorvan-A/husk/internal/container"
 )
 
 // Defaults for the container network. 10.66.0.0/24 is inside RFC 1918 space and

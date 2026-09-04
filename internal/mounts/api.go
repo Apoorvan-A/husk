@@ -7,7 +7,7 @@ import (
 
 	"golang.org/x/sys/unix"
 
-	"github.com/apoorvan10/husk/internal/container"
+	"github.com/Apoorvan-A/husk/internal/container"
 )
 
 // Standard hardening flags for the kernel API filesystems. They are cheap and

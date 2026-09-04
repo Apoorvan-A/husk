@@ -1,8 +1,8 @@
 package initproc
 
 import (
-	"github.com/apoorvan10/husk/internal/container"
-	"github.com/apoorvan10/husk/internal/network"
+	"github.com/Apoorvan-A/husk/internal/container"
+	"github.com/Apoorvan-A/husk/internal/network"
 )
 
 func configureNetwork(cfg *container.Config) error {

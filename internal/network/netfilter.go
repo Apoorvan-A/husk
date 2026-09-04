@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/apoorvan10/husk/internal/container"
+	"github.com/Apoorvan-A/husk/internal/container"
 )
 
 // husk installs its rules into its own chains rather than appending directly to

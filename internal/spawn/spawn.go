@@ -11,11 +11,11 @@ import (
 	"runtime"
 	"syscall"
 
-	"github.com/apoorvan10/husk/internal/container"
-	"github.com/apoorvan10/husk/internal/initproc"
-	"github.com/apoorvan10/husk/internal/ipc"
-	"github.com/apoorvan10/husk/internal/namespaces"
-	"github.com/apoorvan10/husk/internal/security"
+	"github.com/Apoorvan-A/husk/internal/container"
+	"github.com/Apoorvan-A/husk/internal/initproc"
+	"github.com/Apoorvan-A/husk/internal/ipc"
+	"github.com/Apoorvan-A/husk/internal/namespaces"
+	"github.com/Apoorvan-A/husk/internal/security"
 )
 
 // ExtraFiles slots, which the child sees as descriptors 3 and up.

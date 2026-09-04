@@ -17,8 +17,8 @@ package metrics
 import (
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/apoorvan10/husk/internal/cgroups"
-	"github.com/apoorvan10/husk/internal/state"
+	"github.com/Apoorvan-A/husk/internal/cgroups"
+	"github.com/Apoorvan-A/husk/internal/state"
 )
 
 // Labels every series carries. Kept to two: an id and a human-meaningful image

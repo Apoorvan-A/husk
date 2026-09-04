@@ -9,7 +9,7 @@ import (
 	"os"
 	"text/tabwriter"
 
-	"github.com/apoorvan10/husk/internal/initproc"
+	"github.com/Apoorvan-A/husk/internal/initproc"
 )
 
 const usage = `husk — a minimal OCI-compatible container runtime

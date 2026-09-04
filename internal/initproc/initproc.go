@@ -16,10 +16,10 @@ import (
 
 	"golang.org/x/sys/unix"
 
-	"github.com/apoorvan10/husk/internal/container"
-	"github.com/apoorvan10/husk/internal/ipc"
-	"github.com/apoorvan10/husk/internal/mounts"
-	"github.com/apoorvan10/husk/internal/security"
+	"github.com/Apoorvan-A/husk/internal/container"
+	"github.com/Apoorvan-A/husk/internal/ipc"
+	"github.com/Apoorvan-A/husk/internal/mounts"
+	"github.com/Apoorvan-A/husk/internal/security"
 )
 
 // Descriptor numbers the parent guarantees. Go's exec.Cmd assigns ExtraFiles

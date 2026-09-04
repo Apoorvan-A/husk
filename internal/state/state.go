@@ -21,7 +21,7 @@ import (
 
 	"golang.org/x/sys/unix"
 
-	"github.com/apoorvan10/husk/internal/container"
+	"github.com/Apoorvan-A/husk/internal/container"
 )
 
 // DefaultRoot is the runtime state directory.

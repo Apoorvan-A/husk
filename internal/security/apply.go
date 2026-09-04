@@ -16,7 +16,7 @@ import (
 
 	"golang.org/x/sys/unix"
 
-	"github.com/apoorvan10/husk/internal/container"
+	"github.com/Apoorvan-A/husk/internal/container"
 )
 
 // Apply runs the three steps in the only order that works. Each one removes a

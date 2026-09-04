@@ -10,7 +10,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/apoorvan10/husk/internal/cli"
+	"github.com/Apoorvan-A/husk/internal/cli"
 )
 
 func main() {

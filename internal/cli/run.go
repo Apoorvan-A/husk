@@ -9,14 +9,14 @@ import (
 	"strings"
 	"time"
 
-	"github.com/apoorvan10/husk/internal/cgroups"
-	"github.com/apoorvan10/husk/internal/container"
-	"github.com/apoorvan10/husk/internal/hlog"
-	"github.com/apoorvan10/husk/internal/network"
-	"github.com/apoorvan10/husk/internal/security"
-	"github.com/apoorvan10/husk/internal/spawn"
-	"github.com/apoorvan10/husk/internal/state"
-	"github.com/apoorvan10/husk/internal/storage"
+	"github.com/Apoorvan-A/husk/internal/cgroups"
+	"github.com/Apoorvan-A/husk/internal/container"
+	"github.com/Apoorvan-A/husk/internal/hlog"
+	"github.com/Apoorvan-A/husk/internal/network"
+	"github.com/Apoorvan-A/husk/internal/security"
+	"github.com/Apoorvan-A/husk/internal/spawn"
+	"github.com/Apoorvan-A/husk/internal/state"
+	"github.com/Apoorvan-A/husk/internal/storage"
 )
 
 // env bundles the three stores every command needs, so a command body does not

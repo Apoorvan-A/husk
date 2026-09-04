@@ -12,8 +12,8 @@ import (
 
 	"golang.org/x/sys/unix"
 
-	"github.com/apoorvan10/husk/internal/cgroups"
-	"github.com/apoorvan10/husk/internal/state"
+	"github.com/Apoorvan-A/husk/internal/cgroups"
+	"github.com/Apoorvan-A/husk/internal/state"
 )
 
 // husk exec joins an existing container. This is the one operation where Go's

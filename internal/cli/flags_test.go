@@ -3,7 +3,7 @@ package cli
 import (
 	"testing"
 
-	"github.com/apoorvan10/husk/internal/security"
+	"github.com/Apoorvan-A/husk/internal/security"
 )
 
 func TestParseMemoryUsesBinaryMultiples(t *testing.T) {

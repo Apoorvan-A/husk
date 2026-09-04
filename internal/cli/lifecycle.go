@@ -14,9 +14,9 @@ import (
 
 	"golang.org/x/sys/unix"
 
-	"github.com/apoorvan10/husk/internal/cgroups"
-	"github.com/apoorvan10/husk/internal/hlog"
-	"github.com/apoorvan10/husk/internal/state"
+	"github.com/Apoorvan-A/husk/internal/cgroups"
+	"github.com/Apoorvan-A/husk/internal/hlog"
+	"github.com/Apoorvan-A/husk/internal/state"
 )
 
 func startCommand(args []string) error {

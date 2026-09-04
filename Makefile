@@ -1,7 +1,7 @@
 BIN      := bin/husk
 PKG      := ./cmd/husk
 VERSION  ?= $(shell git describe --tags --always --dirty 2>/dev/null || echo dev)
-LDFLAGS  := -s -w -X github.com/apoorvan10/husk/internal/cli.Version=$(VERSION)
+LDFLAGS  := -s -w -X github.com/Apoorvan-A/husk/internal/cli.Version=$(VERSION)
 
 # CGO_ENABLED=0 is not an optimisation. husk execs itself inside the container's
 # mount namespace, where the host's dynamic loader and shared libraries do not

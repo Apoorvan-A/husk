@@ -9,8 +9,8 @@ import (
 
 	rspec "github.com/opencontainers/runtime-spec/specs-go"
 
-	"github.com/apoorvan10/husk/internal/container"
-	"github.com/apoorvan10/husk/internal/security"
+	"github.com/Apoorvan-A/husk/internal/container"
+	"github.com/Apoorvan-A/husk/internal/security"
 )
 
 // An OCI bundle is a directory containing a config.json and a rootfs. The spec

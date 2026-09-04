@@ -1,4 +1,4 @@
-module github.com/apoorvan10/husk
+module github.com/Apoorvan-A/husk
 
 go 1.25
 

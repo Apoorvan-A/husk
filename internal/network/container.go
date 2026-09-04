@@ -14,7 +14,7 @@ import (
 
 	"github.com/vishvananda/netlink"
 
-	"github.com/apoorvan10/husk/internal/container"
+	"github.com/Apoorvan-A/husk/internal/container"
 )
 
 // ConfigureInside brings up the container's interfaces. It runs in the child

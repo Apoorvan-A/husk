@@ -12,8 +12,8 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"golang.org/x/sys/unix"
 
-	"github.com/apoorvan10/husk/internal/cgroups"
-	"github.com/apoorvan10/husk/internal/metrics"
+	"github.com/Apoorvan-A/husk/internal/cgroups"
+	"github.com/Apoorvan-A/husk/internal/metrics"
 )
 
 func metricsCommand(args []string) error {

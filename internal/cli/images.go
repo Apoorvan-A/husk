@@ -4,8 +4,8 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/apoorvan10/husk/internal/hlog"
-	"github.com/apoorvan10/husk/internal/state"
+	"github.com/Apoorvan-A/husk/internal/hlog"
+	"github.com/Apoorvan-A/husk/internal/state"
 )
 
 func commitCommand(args []string) error {
