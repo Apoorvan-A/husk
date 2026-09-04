@@ -19,7 +19,16 @@ func packRootfs(t *testing.T, rootfs string) string {
 	if exists(out) {
 		return out
 	}
-	cmd := exec.Command("tar", "-czf", out, "-C", rootfs, ".")
+	// --one-file-system and the explicit excludes keep tar from ever descending
+	// into a kernel filesystem that may be mounted inside the shared rootfs
+	// fixture. Without this, a stray /proc left mounted in the directory sends
+	// tar into /proc/kcore, which reports a multi-terabyte size and never ends —
+	// the fixture build hangs instead of failing. An image tarball has no
+	// business containing proc/sys/dev contents anyway.
+	cmd := exec.Command("tar",
+		"--one-file-system",
+		"--exclude=./proc/*", "--exclude=./sys/*", "--exclude=./dev/*",
+		"-czf", out, "-C", rootfs, ".")
 	if o, err := cmd.CombinedOutput(); err != nil {
 		t.Fatalf("pack rootfs: %v\n%s", err, o)
 	}

@@ -159,6 +159,21 @@ func SetupRootChroot(cfg *container.Config) error {
 	if err != nil {
 		return fmt.Errorf("resolve rootfs: %w", err)
 	}
+
+	// Make mount propagation private before mounting anything, exactly as the
+	// pivot path does. This is not what makes chroot escapable — that is a
+	// property of chroot(2) rewriting one field of fs_struct and is left
+	// deliberately intact below. This is about not leaking the API filesystem
+	// mounts back onto the host: a new mount namespace inherits the host's
+	// propagation type, and on a systemd host / is MS_SHARED, so a /proc mounted
+	// inside a bare --rootfs directory propagates into the host's view of that
+	// directory. When the rootfs is a shared fixture, a later `tar` over it then
+	// walks into a live /proc and blocks forever reading /proc/kcore. The
+	// strawman is allowed to be escapable; it is not allowed to trash the host.
+	if err := unix.Mount("", "/", "", unix.MS_REC|unix.MS_PRIVATE, ""); err != nil {
+		return fmt.Errorf("make / rprivate: %w", err)
+	}
+
 	if err := unix.Chdir(root); err != nil {
 		return fmt.Errorf("chdir rootfs: %w", err)
 	}
