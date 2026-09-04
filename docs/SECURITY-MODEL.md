@@ -114,6 +114,16 @@ caller and nothing else, so the container cannot have more than one user. Mappin
 a range needs `/etc/subuid` delegation and the setuid helpers `newuidmap` and
 `newgidmap`, which husk does not invoke.
 
+**Rootless is gated by the host's procfs mount policy.** Mounting a fresh
+procfs inside a user namespace is subject to the kernel's `mount_too_revealing`
+check: if the host's own `/proc` carries locked submounts, the kernel refuses the
+mount with `EPERM` even when the user namespace is owned by root. Whether this
+triggers depends on the host kernel and its mount table, so `--rootless` works on
+many hosts (developer machines, WSL2, most desktop distributions) and is refused
+on others with a hardened `/proc`. husk does not work around this; a production
+runtime would carry the container's masked-path set into the fresh mount so the
+new procfs is never less revealing than the parent's locked mounts.
+
 **Rootless commit loses opaque markers.** Setting `trusted.overlay.*` xattrs
 requires `CAP_SYS_ADMIN`, so a layer committed rootlessly silently loses the
 markers that record deleted directories. Deleted subtrees reappear when that
